@@ -4,6 +4,7 @@ import com.epam.pipeline.tesadapter.entity.TesCancelTaskResponse;
 import com.epam.pipeline.tesadapter.entity.TesCreateTaskResponse;
 import com.epam.pipeline.tesadapter.entity.TesTask;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+@Slf4j
 @Service
 public class TesTaskService {
     @Autowired
@@ -21,7 +23,7 @@ public class TesTaskService {
             return new ResponseEntity<TesCreateTaskResponse>(objectMapper.readValue("STUBBED",
                     TesCreateTaskResponse.class), HttpStatus.NOT_IMPLEMENTED);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("STUBBED");
             return new ResponseEntity<TesCreateTaskResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -31,7 +33,8 @@ public class TesTaskService {
             return new ResponseEntity<TesTask>(objectMapper.readValue("STUBBED", TesTask.class),
                     HttpStatus.NOT_IMPLEMENTED);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("STUBBED");
+
             return new ResponseEntity<TesTask>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -41,7 +44,7 @@ public class TesTaskService {
             return new ResponseEntity<TesCancelTaskResponse>(objectMapper.readValue("",
                     TesCancelTaskResponse.class), HttpStatus.NOT_IMPLEMENTED);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("STUBBED");
             return new ResponseEntity<TesCancelTaskResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
