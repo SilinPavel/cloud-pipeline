@@ -8,31 +8,29 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  * Gets or Sets tesFileType
  */
 public enum TesFileType {
-  
-  FILE("FILE"),
-  
-  DIRECTORY("DIRECTORY");
+    FILE("FILE"),
+    DIRECTORY("DIRECTORY");
 
-  private String value;
+    private String value;
 
-  TesFileType(String value) {
-    this.value = value;
-  }
-
-  @Override
-  @JsonValue
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static TesFileType fromValue(String text) {
-    for (TesFileType b : TesFileType.values()) {
-      if (String.valueOf(b.value).equals(text)) {
-        return b;
-      }
+    TesFileType(String value) {
+        this.value = value;
     }
-    return null;
-  }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TesFileType fromValue(String text) {
+        for (TesFileType b : TesFileType.values()) {
+            if (String.valueOf(b.value).equals(text)) {
+                return b;
+            }
+        }
+        return null;
+    }
 }
 
