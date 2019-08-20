@@ -39,35 +39,5 @@ public class TesInput {
             "must be ignored.")
     @JsonProperty("content")
     private String content = null;
-
-    public TesInput name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public TesInput description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public TesInput url(String url) {
-        this.url = url;
-        return this;
-    }
-  
-    public TesInput path(String path) {
-        this.path = path;
-        return this;
-    }
-
-    public TesInput type(TesFileType type) {
-        this.type = type;
-        return this;
-    }
-
-    public TesInput content(String content) {
-        this.content = content;
-        return this;
-    }
 }
 

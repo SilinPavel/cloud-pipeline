@@ -28,28 +28,5 @@ public class TesServiceInfo {
     @JsonProperty("storage")
     @Valid
     private List<String> storage = null;
-
-    public TesServiceInfo name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public TesServiceInfo doc(String doc) {
-        this.doc = doc;
-        return this;
-    }
-
-    public TesServiceInfo storage(List<String> storage) {
-        this.storage = storage;
-        return this;
-    }
-
-    public TesServiceInfo addStorageItem(String storageItem) {
-        if (this.storage == null) {
-            this.storage = new ArrayList<String>();
-        }
-        this.storage.add(storageItem);
-        return this;
-    }
 }
 

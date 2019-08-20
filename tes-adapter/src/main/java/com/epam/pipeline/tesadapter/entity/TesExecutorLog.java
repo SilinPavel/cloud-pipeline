@@ -32,30 +32,5 @@ public class TesExecutorLog {
     @ApiModelProperty(value = "Exit code.")
     @JsonProperty("exit_code")
     private Integer exitCode = null;
-
-    public TesExecutorLog startTime(String startTime) {
-        this.startTime = startTime;
-        return this;
-    }
-
-    public TesExecutorLog endTime(String endTime) {
-        this.endTime = endTime;
-        return this;
-    }
-
-    public TesExecutorLog stdout(String stdout) {
-        this.stdout = stdout;
-        return this;
-    }
-
-    public TesExecutorLog stderr(String stderr) {
-        this.stderr = stderr;
-        return this;
-    }
-
-    public TesExecutorLog exitCode(Integer exitCode) {
-        this.exitCode = exitCode;
-        return this;
-    }
 }
 

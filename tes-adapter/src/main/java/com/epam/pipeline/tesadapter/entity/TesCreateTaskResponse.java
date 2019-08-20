@@ -12,10 +12,5 @@ public class TesCreateTaskResponse {
     @ApiModelProperty(value = "Task identifier assigned by the server.")
     @JsonProperty("id")
     private String id = null;
-
-    public TesCreateTaskResponse id(String id) {
-        this.id = id;
-        return this;
-    }
 }
 

@@ -23,21 +23,5 @@ public enum TesState {
     TesState(String value) {
         this.value = value;
     }
-
-    @Override
-    @JsonValue
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TesState fromValue(String text) {
-        for (TesState b : TesState.values()) {
-            if (String.valueOf(b.value).equals(text)) {
-                return b;
-            }
-        }
-        return null;
-    }
 }
 

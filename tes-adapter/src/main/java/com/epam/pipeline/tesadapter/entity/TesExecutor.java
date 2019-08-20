@@ -49,56 +49,5 @@ public class TesExecutor {
     @JsonProperty("env")
     @Valid
     private Map<String, String> env = null;
-
-    public TesExecutor image(String image) {
-        this.image = image;
-        return this;
-    }
-
-    public TesExecutor command(List<String> command) {
-        this.command = command;
-        return this;
-    }
-
-    public TesExecutor addCommandItem(String commandItem) {
-        if (this.command == null) {
-            this.command = new ArrayList<String>();
-        }
-        this.command.add(commandItem);
-        return this;
-    }
-
-    public TesExecutor workdir(String workdir) {
-        this.workdir = workdir;
-        return this;
-    }
-
-    public TesExecutor stdin(String stdin) {
-        this.stdin = stdin;
-        return this;
-    }
-
-    public TesExecutor stdout(String stdout) {
-        this.stdout = stdout;
-        return this;
-    }
-
-    public TesExecutor stderr(String stderr) {
-        this.stderr = stderr;
-        return this;
-    }
-
-    public TesExecutor env(Map<String, String> env) {
-        this.env = env;
-        return this;
-    }
-
-    public TesExecutor putEnvItem(String key, String envItem) {
-        if (this.env == null) {
-            this.env = new HashMap<String, String>();
-        }
-        this.env.put(key, envItem);
-        return this;
-    }
 }
 

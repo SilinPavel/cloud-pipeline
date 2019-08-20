@@ -33,38 +33,5 @@ public class TesResources {
     @JsonProperty("zones")
     @Valid
     private List<String> zones = null;
-
-    public TesResources cpuCores(Long cpuCores) {
-        this.cpuCores = cpuCores;
-        return this;
-    }
-
-    public TesResources preemptible(Boolean preemptible) {
-        this.preemptible = preemptible;
-        return this;
-    }
-
-    public TesResources ramGb(Double ramGb) {
-        this.ramGb = ramGb;
-        return this;
-    }
-
-    public TesResources diskGb(Double diskGb) {
-        this.diskGb = diskGb;
-        return this;
-    }
-
-    public TesResources zones(List<String> zones) {
-        this.zones = zones;
-        return this;
-    }
-
-    public TesResources addZonesItem(String zonesItem) {
-        if (this.zones == null) {
-            this.zones = new ArrayList<String>();
-        }
-        this.zones.add(zonesItem);
-        return this;
-    }
 }
 

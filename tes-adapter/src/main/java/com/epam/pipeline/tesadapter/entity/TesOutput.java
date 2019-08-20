@@ -32,30 +32,5 @@ public class TesOutput {
     @JsonProperty("type")
     @Valid
     private TesFileType type = null;
-
-    public TesOutput name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public TesOutput description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public TesOutput url(String url) {
-        this.url = url;
-        return this;
-    }
-
-    public TesOutput path(String path) {
-        this.path = path;
-        return this;
-    }
-
-    public TesOutput type(TesFileType type) {
-        this.type = type;
-        return this;
-    }
 }
 
