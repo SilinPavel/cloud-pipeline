@@ -51,7 +51,7 @@ public class TesAdapterController {
     @GetMapping("/v1/tasks/{id}")
     @ResponseBody
     ResponseEntity<TesTask> getTesTask(@RequestParam String id, @RequestParam(required = false,
-            defaultValue = "MINIMAL") String view) {
+            defaultValue = "MINIMAL") TaskView view) {
         tesTaskService.stub();
         return new ResponseEntity<TesTask>(new TesTask(), HttpStatus.NOT_IMPLEMENTED);
     }
