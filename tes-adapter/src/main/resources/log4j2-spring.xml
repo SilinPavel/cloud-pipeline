@@ -27,7 +27,7 @@
                 </pattern>>
             </PatternLayout>
         </Console>
-        <RollingFile  name="App-Appender" fileName="${log-path}/pipeline.log"
+        <RollingFile  name="App-Appender" fileName="${log-path}/tes-adapter.log"
                       filePattern="${log-path}/pipeline-%d{yyyyMMdd}.log">
             <DefaultRolloverStrategy>
                 <Delete basePath="${log-path}" maxDepth="1">
@@ -69,11 +69,8 @@
         </RollingFile >
     </Appenders>
     <Loggers>
-        <Logger name="com.epam.pipeline" level="debug" additivity="true">
+        <Logger name="com.epam.pipeline.tesadapter" level="debug" additivity="true">
             <AppenderRef ref="App-Appender"/>
-        </Logger>
-        <Logger name="org.springframework.security.saml" level="debug" additivity="false">
-            <AppenderRef ref="Spring-Appender"/>
         </Logger>
         <Logger name="org.springframework" level="error" additivity="false">
             <AppenderRef ref="Spring-Appender"/>
