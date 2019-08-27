@@ -38,12 +38,13 @@ public class TesTaskServiceImpl implements TesTaskService {
     }
 
     private Long parseRunId(String id) {
-        Long longRunId = null;
+        Long longRunId;
         Assert.hasText(id, "INVALID RUN ID");
         try {
             longRunId = Long.parseLong(id);
         } catch (NumberFormatException e) {
             log.error("INVALID RUN ID");
+            throw new IllegalArgumentException(e);
         }
         return longRunId;
     }
