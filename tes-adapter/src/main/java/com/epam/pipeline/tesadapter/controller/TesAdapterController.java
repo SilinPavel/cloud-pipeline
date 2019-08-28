@@ -50,7 +50,7 @@ public class TesAdapterController {
 
     @GetMapping("/v1/tasks/{id}")
     @ResponseBody
-    ResponseEntity<TesTask> getTesTask(@RequestParam String id, @RequestParam(required = false,
+    ResponseEntity<TesTask> getTesTask(@PathVariable String id, @RequestParam(required = false,
             defaultValue = "MINIMAL") TaskView view) {
         tesTaskService.stub();
         return new ResponseEntity<TesTask>(new TesTask(), HttpStatus.NOT_IMPLEMENTED);
@@ -58,7 +58,7 @@ public class TesAdapterController {
 
     @PostMapping("/v1/tasks/{id}:cancel")
     @ResponseBody
-    ResponseEntity<TesCancelTaskResponse> cancelTesTask(@RequestParam String id) {
+    ResponseEntity<TesCancelTaskResponse> cancelTesTask(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(tesTaskService.cancelTesTask(id));
     }
 }
