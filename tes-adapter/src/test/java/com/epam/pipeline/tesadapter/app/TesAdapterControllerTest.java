@@ -28,10 +28,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(TesAdapterController.class)
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "PMD.TooManyStaticImports"})
 public class TesAdapterControllerTest {
     private static final String STUBBED_TASK_ID = "5";
     private static final Long STUBBED_PAGE_SIZE = 55L;
+    private static final String STUBBED_SUBMIT_JSON_REQUEST = "{}";
     private static final String STUBBED_SUBMIT_JSON_RESPONSE = "{\"id\":\"5\"}";
 
     @Autowired
@@ -48,25 +49,22 @@ public class TesAdapterControllerTest {
         TesCreateTaskResponse tesCreateTaskResponse = new TesCreateTaskResponse();
         tesCreateTaskResponse.setId(STUBBED_TASK_ID);
         when(tesTaskService.submitTesTask(any(TesTask.class))).thenReturn(tesCreateTaskResponse);
-        this.mockMvc.perform(post("/v1/tasks").contentType(MediaType.APPLICATION_JSON_UTF8).content("{}"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(STUBBED_SUBMIT_JSON_RESPONSE));
+        this.mockMvc.perform(post("/v1/tasks").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(STUBBED_SUBMIT_JSON_REQUEST))
+                .andDo(print()).andExpect(status().isOk()).andExpect(content().json(STUBBED_SUBMIT_JSON_RESPONSE));
     }
 
     @Test
     void cancelTesTaskWhenRequestingIdReturnCanceledTask() throws Exception {
         when(tesTaskService.cancelTesTask(STUBBED_TASK_ID)).thenReturn(new TesCancelTaskResponse());
         this.mockMvc.perform(post("/v1/tasks/{id}:cancel", STUBBED_TASK_ID))
-                .andDo(print())
-                .andExpect(status().isOk());
+                .andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     void listTesTaskWhenRequestingReturnTesListTasksResponse() throws Exception {
         when(tesTaskService.listTesTask()).thenReturn(new TesListTasksResponse());
         this.mockMvc.perform(get("/v1/tasks?page_size={size}", STUBBED_PAGE_SIZE))
-                .andDo(print())
-                .andExpect(status().isOk());
+                .andDo(print()).andExpect(status().isOk());
     }
 }
