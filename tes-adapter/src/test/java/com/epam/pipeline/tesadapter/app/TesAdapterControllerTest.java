@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -34,6 +35,7 @@ public class TesAdapterControllerTest {
     private static final Long STUBBED_PAGE_SIZE = 55L;
     private static final String STUBBED_SUBMIT_JSON_REQUEST = "{}";
     private static final String STUBBED_SUBMIT_JSON_RESPONSE = "{\"id\":\"5\"}";
+
 
     @Autowired
     private MockMvc mockMvc;
