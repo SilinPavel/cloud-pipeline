@@ -1,6 +1,5 @@
 package com.epam.pipeline.tesadapter.app;
 
-
 import com.epam.pipeline.tesadapter.common.MessageConstants;
 import com.epam.pipeline.tesadapter.common.MessageHelper;
 import com.epam.pipeline.tesadapter.controller.TesAdapterController;
@@ -12,6 +11,7 @@ import com.epam.pipeline.tesadapter.entity.TesListTasksResponse;
 import com.epam.pipeline.tesadapter.entity.TesServiceInfo;
 import com.epam.pipeline.tesadapter.entity.TesTask;
 import com.epam.pipeline.tesadapter.service.TesTaskServiceImpl;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 @WebMvcTest(TesAdapterController.class)
 @SuppressWarnings({"unused", "PMD.TooManyStaticImports", "PMD.AvoidUsingHardCodedIP",
@@ -155,7 +154,8 @@ public class TesAdapterControllerTest {
                 .header(HttpHeaders.AUTHORIZATION, defaultPipelineToken)
                 .contentType(JSON_CONTENT_TYPE))
                 .andDo(print()).andExpect(status().isOk()).andExpect(content()
-                .json(new ObjectMapper().writeValueAsString(tesTask)));
+                .json(new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                        .writeValueAsString(tesTask)));
     }
 
     @Test

@@ -58,7 +58,7 @@ import static org.springframework.util.StringUtils.hasText;
 
 @ExtendWith(value = SpringExtension.class)
 @ContextConfiguration(classes = {AppConfiguration.class})
-@SuppressWarnings({"unused", "PMD.TooManyStaticImports"})
+@SuppressWarnings({"unused", "PMD.TooManyStaticImports", "checkstyle:magicnumber", "checkstyle:linelength"})
 class TaskMapperTest {
     private static final Integer DEFAULT_HDD_SIZE = 50;
     private static final Double DEFAULT_RAM_GB = 8.0;
@@ -77,7 +77,8 @@ class TaskMapperTest {
     private static final Long STUBBED_REGION_ID = 1L;
     private static final Long STUBBED_TOOL_ID = 11584L;
     private static final Long TOOL_ID = 1L;
-    private static final String STUBBED_IMAGE = "cp-docker-registry.default.svc.cluster.local:31443/library/centos:latest";
+    private static final String STUBBED_IMAGE =
+            "cp-docker-registry.default.svc.cluster.local:31443/library/centos:latest";
     private static final String INPUT = "input";
     private static final String OUTPUT = "output";
     private static final String STUBBED_NAME_PIPELINE_PARAMETER = "pipelineRunParameter";
@@ -86,7 +87,7 @@ class TaskMapperTest {
     private static final String TYPE_NODE = "nodeType";
     private static final String STUBBED_TEXT_FOR_LOG = "log";
     private static final String PIPELINE_TASK_NAME_CONSOLE = "Console";
-    private static final String PIPELINE_TASK_NAME_InitializeEnvironment = "InitializeEnvironment";
+    private static final String PIPELINE_TASK_NAME_INITIALIZE_ENVIRONMENT = "InitializeEnvironment";
     private static final String ANY_STRING = "any_string";
     private static final String GIB = "GiB";
     private static final Double KIB_TO_GIB = 0.00000095367432;
@@ -94,6 +95,9 @@ class TaskMapperTest {
     private static TaskMapper taskMapper;
     private static PipelineRun run = getPipelineRun();
     private static CloudPipelineAPIClient cloudPipelineAPIClient = mock(CloudPipelineAPIClient.class);
+
+    private static TaskMapper taskMapper;
+    private static PipelineRun run = getPipelineRun();
 
     @Autowired
     private MessageHelper messageHelper;
@@ -154,7 +158,7 @@ class TaskMapperTest {
         abstractCloudRegions.add(abstractCloudRegion);
         tesExecutors.add(tesExecutor);
         tesTask.setExecutors(tesExecutors);
-        this.taskMapper = new TaskMapper(DEFAULT_HDD_SIZE, DEFAULT_RAM_GB, DEFAULT_CPU_CORES,
+        TaskMapperTest.taskMapper = new TaskMapper(DEFAULT_HDD_SIZE, DEFAULT_RAM_GB, DEFAULT_CPU_CORES,
                 DEFAULT_PREEMPTIBLE, DEFAULT_REGION_NAME, cloudPipelineAPIClient, this.messageHelper);
     }
 
@@ -172,7 +176,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunMapToPipelineStartWithNullTesTask() {
         tesTask = null;
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.mapToPipelineStart(tesTask));
+            () -> taskMapper.mapToPipelineStart(tesTask));
         assertTrue(exception.getMessage().contains(messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, tesTask)));
     }
@@ -181,7 +185,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunMapToPipelineStartWithNullCommandExecutor() {
         tesExecutor.setCommand(null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.mapToPipelineStart(tesTask));
+            () -> taskMapper.mapToPipelineStart(tesTask));
         assertEquals(exception.getMessage(), (messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, COMMAND)));
     }
@@ -190,7 +194,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunMapToPipelineStartWithNullOrEmptyTesImage() {
         tesExecutor.setImage(null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.mapToPipelineStart(tesTask));
+            () -> taskMapper.mapToPipelineStart(tesTask));
         assertEquals(exception.getMessage(), (messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, IMAGE)));
     }
@@ -200,7 +204,7 @@ class TaskMapperTest {
         when(cloudPipelineAPIClient.loadAllowedInstanceAndPriceTypes(STUBBED_TOOL_ID,
                 STUBBED_REGION_ID, DEFAULT_PREEMPTIBLE)).thenReturn(null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.mapToPipelineStart(tesTask));
+            () -> taskMapper.mapToPipelineStart(tesTask));
         assertEquals(exception.getMessage(), (messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, INSTANCE_TYPES)));
     }
@@ -209,7 +213,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunMapToPipelineStartWithNullTool() {
         when(cloudPipelineAPIClient.loadTool(any())).thenReturn(null);
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.mapToPipelineStart(tesTask));
+            () -> taskMapper.mapToPipelineStart(tesTask));
         assertEquals(exception2.getMessage(), (messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, TOOL)));
     }
@@ -219,7 +223,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunMapToPipelineStartWithTwoExecutors() {
         tesExecutors.add(new TesExecutor());
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.mapToPipelineStart(tesTask));
+            () -> taskMapper.mapToPipelineStart(tesTask));
         assertTrue(exception.getMessage().contains(messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_INCOMPATIBLE_CONTENT, EXECUTORS)));
     }
@@ -228,7 +232,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunGetProperInstanceTypeWithNullInstanceTypesList() {
         when(allowedInstanceAndPriceTypes.getAllowedInstanceTypes()).thenReturn(null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.getProperInstanceType(tesTask, tool));
+            () -> taskMapper.getProperInstanceType(tesTask, tool));
         assertEquals(exception.getMessage(), messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, INSTANCE_TYPES));
     }
@@ -237,14 +241,15 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunGetProperInstanceTypeWithNullMinInstanceResponse() {
         when(allowedInstanceAndPriceTypes.getAllowedInstanceTypes()).thenReturn(new ArrayList<>());
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.getProperInstanceType(tesTask, tool));
+            () -> taskMapper.getProperInstanceType(tesTask, tool));
         assertEquals(exception.getMessage(), messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, MIN_INSTANCE));
     }
 
     @ParameterizedTest
     @MethodSource("provideInputForGetProperInstanceTypeTest")
-    public void getProperInstanceTypeShouldReturnProperInstanceName(String instanceTypeName, Double ramGb, Long cpuCore) {
+    public void getProperInstanceTypeShouldReturnProperInstanceName(String instanceTypeName,
+                                                                    Double ramGb, Long cpuCore) {
         when(tesTask.getResources().getRamGb()).thenReturn(ramGb);
         when(tesTask.getResources().getCpuCores()).thenReturn(cpuCore);
         assertEquals(instanceTypeName, taskMapper.getProperInstanceType(tesTask, tool));
@@ -254,7 +259,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunGetProperInstanceTypeWithTwoZones() {
         zones.add("Second zone");
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.getProperInstanceType(tesTask, tool));
+            () -> taskMapper.getProperInstanceType(tesTask, tool));
         assertEquals(exception.getMessage(), messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_INCOMPATIBLE_CONTENT, "zones"));
     }
@@ -263,7 +268,7 @@ class TaskMapperTest {
     public void expectIllegalArgExceptionWhenRunGetProperInstanceTypeWithWrongRegionIdResponse() {
         when(abstractCloudRegion.getId()).thenReturn(null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () -> taskMapper.getProperInstanceType(tesTask, tool));
+            () -> taskMapper.getProperInstanceType(tesTask, tool));
         assertEquals(exception.getMessage(), messageHelper.getMessage(
                 MessageConstants.ERROR_PARAMETER_NULL_OR_EMPTY, "id"));
     }
@@ -545,7 +550,7 @@ class TaskMapperTest {
         PipelineTask pipelineTaskConsole = new PipelineTask();
         pipelineTaskConsole.setName(PIPELINE_TASK_NAME_CONSOLE);
         PipelineTask pipelineTaskInitializeEnvironment = new PipelineTask();
-        pipelineTaskInitializeEnvironment.setName(PIPELINE_TASK_NAME_InitializeEnvironment);
+        pipelineTaskInitializeEnvironment.setName(PIPELINE_TASK_NAME_INITIALIZE_ENVIRONMENT);
         listPipelineTasks.add(pipelineTaskConsole);
         listPipelineTasks.add(pipelineTaskInitializeEnvironment);
 
